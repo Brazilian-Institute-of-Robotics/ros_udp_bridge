@@ -37,6 +37,9 @@ void UDPReceive::start(){
 
 int main(int argc, char **argv) {
 	int port = 1153;
+	ros::init(argc, argv, "udp_comm_node");
 	UDPReceive udp(1153);
 	udp.start();
+	ros::spin();
+	return 0;
 }

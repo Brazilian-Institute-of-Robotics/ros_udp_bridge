@@ -42,7 +42,8 @@ include_directories(
   # src/${PROJECT_NAME}/udp_comm.cpp
  #)
 
- #add_executable(${PROJECT_NAME}_node src/udp_class.cpp)
+ add_executable(udp_comm_node src/udp_class.cpp)
+ target_link_libraries(udp_comm_node ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
