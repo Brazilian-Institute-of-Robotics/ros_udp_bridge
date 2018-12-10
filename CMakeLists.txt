@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(udp_comm)
+project(udp_bridge)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -13,8 +13,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
- add_executable(udp_comm_node src/udp_class.cpp)
- target_link_libraries(udp_comm_node ${catkin_LIBRARIES}) 
+ add_executable(udp_bridge_node src/udp_comm.cpp)
+ target_link_libraries(udp_bridge_node ${catkin_LIBRARIES}) 
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}

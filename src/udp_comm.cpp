@@ -1,4 +1,4 @@
-#include "udp_class.hpp"
+#include "udp_comm.hpp"
 
 UDPReceive::UDPReceive(int port)
 	: port(port)
