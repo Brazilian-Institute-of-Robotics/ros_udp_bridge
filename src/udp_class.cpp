@@ -3,7 +3,7 @@
 UDPReceive::UDPReceive(int port)
 	: port(port)
 {  
-	//pub = n.advertise<std_msgs::Char>("udp_data", 10);
+	pub = n.advertise<std_msgs::Char>("udp_data", 10);
     
 	memset((char *)&myaddr, 0, sizeof(myaddr));
 	myaddr.sin_family = AF_INET;
@@ -29,8 +29,8 @@ void UDPReceive::start(){
 		if (recvlen > 0) {
 			buffer[recvlen] = 0; 
 			printf("received message: \"%s\"\n", buffer);
-			//msg.data = *buffer;
-			//pub.publish(msg);		
+			msg.data = *buffer;
+			pub.publish(msg);		
 		} 
 	} 
 
@@ -38,9 +38,9 @@ void UDPReceive::start(){
 
 int main(int argc, char **argv) {
 	int port = 1153;
-	//ros::init(argc, argv, "udp_comm_node");
+	ros::init(argc, argv, "udp_comm_node");
 	UDPReceive udp(1153);
 	udp.start();
-	//ros::spin();
+	ros::spin();
 	return 0;
 }
