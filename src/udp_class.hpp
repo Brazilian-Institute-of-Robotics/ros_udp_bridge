@@ -1,3 +1,5 @@
+//#include "ros/ros.h"
+
 #include <stdio.h>
 #include <unistd.h>
 
@@ -5,8 +7,8 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string.h>
-#include <ros/ros.h>
-#include <std_msgs/String.h>
+//#include <std_msgs/Char.h>
+#include <sstream>
 
 #define BUFF_SIZE 2048 
 #define PORT 1153
@@ -19,9 +21,11 @@ class UDPReceive{
     socklen_t addrlen;
     int recvlen;
 	int server;
+    //std_msgs::Char msg;
+
     public:
-        ros::NodeHandle n;
-        ros::Publisher pub;
+        //ros::NodeHandle n;
+        //ros::Publisher pub;
         UDPReceive(int port);
         void start();
 };
