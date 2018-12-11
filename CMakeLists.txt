@@ -13,8 +13,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
- add_executable(udp_bridge_node src/udp_comm.cpp)
- target_link_libraries(udp_bridge_node ${catkin_LIBRARIES}) 
+ add_executable(udp_bridge_receive src/udp_comm.cpp)
+ add_executable(udp_bridge_send src/udp_send.cpp)
+ target_link_libraries(udp_bridge_receive ${catkin_LIBRARIES}) 
+ target_link_libraries(udp_bridge_send ${catkin_LIBRARIES})
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
