@@ -1,5 +1,7 @@
 #ros_udp_bridge
-Receive data from an UDP port and publish it on a ROS topic.
+The package has two nodes:
+1) Receive data from an UDP port and publish it on a ROS topic.
+2) Receive data from an ROS Topic and send it to an UDP port.
 
 Run it !
 ------------------------------
@@ -8,16 +10,27 @@ Open the terminal on catkin environment and type:
 ```
 source ./devel/setup.bash
 ```
-After that, run the node with:
+After that, run the node udp_bridge_receive to publish data from an UDP port:
 ```
-rosrun udp_bridge udp_bridge_node
+rosrun udp_bridge udp_bridge_receive
+```
+
+Or, run the node udp_bridge_send to subscribe a ROS topic and send the content to a UDP port.
+```
+rosrun udp_bridge udp_bridge_send
 ```
 Open other terminal window and send a data through an UDP port
 
+You can send data through an UDP port using the command:
 ```
-echo 'Hello World' | socat - udp-sendto:<your_ip>:<udp_port>
+echo '<your message>' | socat - udp-sendto:<your_ip>:<udp_port>
 ```
-Open other terminal port to see your message being published on a ROS Topic
+You can listen to an UDP port using the command:
+
+```
+socat udp-listen:<port_number>, -
+```
+The data published usign udp_bridge_receive node can be seem using
 ```
 rostopic echo /udp_message
 ```
