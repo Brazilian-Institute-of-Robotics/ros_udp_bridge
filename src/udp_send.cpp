@@ -9,7 +9,6 @@ UDPSend::UDPSend(int port)
 	myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	myaddr.sin_port = htons(port);
     
-	my_message = "\nluciana\n";
     if ((server = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 		perror("The socket can't be created\n"); 
 	}
@@ -17,10 +16,7 @@ UDPSend::UDPSend(int port)
 
 void UDPSend::send(const std_msgs::String::ConstPtr& msg){
 
-	printf("\nEntrei no callback\n");
-    ROS_INFO("I heard: [%s]", msg->data.c_str());
-
-	if (sendto(server, my_message, strlen(my_message), 0, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0) {
+	if (sendto(server, msg->data.c_str(), strlen(msg->data.c_str()), 0, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0) {
 		perror("sendto failed");
 	}
 }

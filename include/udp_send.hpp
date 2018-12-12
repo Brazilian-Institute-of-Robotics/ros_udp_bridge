@@ -15,7 +15,6 @@
 
 class UDPSend{
     int port;
-    char *my_message; 
     struct sockaddr_in myaddr;
     socklen_t addrlen;
 	int server;
