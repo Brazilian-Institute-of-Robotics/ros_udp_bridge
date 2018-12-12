@@ -3,7 +3,7 @@
 UDPSend::UDPSend(int port)
 	: port(port)
 {  
-	sub = n.subscribe("udp_send", 10, UDPSend::send);
+	sub = n.subscribe("chatter", 1, &UDPSend::send, this);
 	memset((char *)&myaddr, 0, sizeof(myaddr));
 	myaddr.sin_family = AF_INET;
 	myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -17,6 +17,7 @@ UDPSend::UDPSend(int port)
 
 void UDPSend::send(const std_msgs::String::ConstPtr& msg){
 
+	printf("\nEntrei no callback\n");
     ROS_INFO("I heard: [%s]", msg->data.c_str());
 
 	if (sendto(server, my_message, strlen(my_message), 0, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0) {
