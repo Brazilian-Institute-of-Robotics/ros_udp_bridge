@@ -3,7 +3,7 @@
 UDPReceive::UDPReceive(int port)
 	: port(port)
 {  
-	pub = n.advertise<std_msgs::Char>("udp_message", 10);
+	pub = n.advertise<std_msgs::String>("udp_message", 100);
     
 	memset((char *)&myaddr, 0, sizeof(myaddr));
 	myaddr.sin_family = AF_INET;
@@ -28,8 +28,9 @@ void UDPReceive::start(){
 		printf("%d bytes received\n", recvlen);
 		if (recvlen > 0) {
 			buffer[recvlen] = 0; 
-			printf("received message: \"%s\"\n", buffer);
-			msg.data = *buffer;
+			printf("received message: %s\n", buffer);
+			ss << buffer;
+			msg.data = ss.str();
 			pub.publish(msg);		
 		} 
 	} 

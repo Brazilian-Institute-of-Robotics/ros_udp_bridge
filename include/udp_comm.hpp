@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string.h>
-#include <std_msgs/Char.h>
+#include <std_msgs/String.h>
 #include <sstream>
 
 #define BUFF_SIZE 2048 
@@ -20,7 +20,8 @@ class UDPReceive{
     socklen_t addrlen;
     int recvlen;
 	int server;
-    std_msgs::Char msg;
+    std_msgs::String msg;
+    std::stringstream ss;
 
     public:
         ros::NodeHandle n;
