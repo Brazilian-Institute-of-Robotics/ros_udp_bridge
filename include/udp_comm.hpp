@@ -11,7 +11,6 @@
 #include <sstream>
 
 #define BUFF_SIZE 2048 
-#define PORT 1153
 
 class UDPReceive{
     int port;
