@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(udp_bridge)
 
+set (CMAKE_CXX_STANDARD 11)
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
@@ -15,8 +17,10 @@ include_directories(
 
  add_executable(udp_bridge_receive src/udp_comm.cpp)
  add_executable(udp_bridge_send src/udp_send.cpp)
+ add_executable(udp_bridge_motor src/udp_motor_send.cpp)
  target_link_libraries(udp_bridge_receive ${catkin_LIBRARIES}) 
  target_link_libraries(udp_bridge_send ${catkin_LIBRARIES})
+ target_link_libraries(udp_bridge_motor ${catkin_LIBRARIES})
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
