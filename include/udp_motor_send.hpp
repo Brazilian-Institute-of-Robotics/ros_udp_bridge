@@ -13,6 +13,7 @@
 #include <std_msgs/String.h>
 
 #define BUFF_SIZE 512 // BUFLEN 
+#define SERVER "10.88.119.102"
 
 class UDPSend{
     char buffer[BUFF_SIZE]; // era unsigned char
