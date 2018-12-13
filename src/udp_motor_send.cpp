@@ -3,39 +3,8 @@
 UDPSend::UDPSend(int port)
 	: port(port)
 {  
-
-	int i=0;
-	for(auto x:{0xff, 0xff, 0x01, 0x05, 0x03, 0x1e, 0x00, 0x00, 0xd8}){
-		motor1_0[i]=x;
-		i++;
-	}
-
-	i=0;
-
-	for(auto x:{0xff, 0xff, 0x01, 0x05, 0x03, 0x1e, 0xff, 0x0f, 0xca}){
-		motor1_1[i]=x;
-		i++;
-	}
-
-	i=0;
-
-	for(auto x:{0xff, 0xff, 0x02, 0x05, 0x03, 0x1e, 0x00, 0x00, 0xd7}){
-		motor2_0[i]=x;
-		i++;
-	}
-
-	i=0;
-
-	for(auto x:{0xff, 0xff, 0x02, 0x05, 0x03, 0x1e, 0xff, 0x0f, 0xc9}){
-		motor2_1[i]=x;
-		i++;
-	}
-
-	//sub = n.subscribe("chatter", 1, &UDPSend::send, this);
-	//pub = n.advertise<std_msgs::String>("udp_message", 100);
 	memset((char *)&myaddr, 0, sizeof(myaddr));
 	myaddr.sin_family = AF_INET;
-	//myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	myaddr.sin_port = htons(port);
 
 	slen = sizeof(myaddr);
@@ -62,16 +31,16 @@ void UDPSend::send(/*const std_msgs::String::ConstPtr& msg*/){
 
 	while(1){
 
-		if (sendto(server, motor1_0, sizeof(motor1_0) , 0 , (struct sockaddr *) &myaddr, addrlen)==-1) { print_info("sendto()"); }
+		if (sendto(server, motor1_0, sizeof(motor1_0) , 0 , (struct sockaddr *) &myaddr, slen)==-1) { print_info("sendto()"); }
 		receivefrom();
 
-		if (sendto(server, motor2_0, sizeof(motor2_0) , 0 , (struct sockaddr *) &myaddr, addrlen)==-1) { print_info("sendto()"); }
+		if (sendto(server, motor2_0, sizeof(motor2_0) , 0 , (struct sockaddr *) &myaddr, slen)==-1) { print_info("sendto()"); }
 		receivefrom();
 
-		if (sendto(server, motor1_1, sizeof(motor1_1) , 0 , (struct sockaddr *) &myaddr, addrlen)==-1) { print_info("sendto()"); }
+		if (sendto(server, motor1_1, sizeof(motor1_1) , 0 , (struct sockaddr *) &myaddr, slen)==-1) { print_info("sendto()"); }
 		receivefrom();
 
-		if (sendto(server, motor2_1, sizeof(motor2_1) , 0 , (struct sockaddr *) &myaddr, addrlen)==-1) { print_info("sendto()"); }
+		if (sendto(server, motor2_1, sizeof(motor2_1) , 0 , (struct sockaddr *) &myaddr, slen)==-1) { print_info("sendto()"); }
 		receivefrom();
 
 		if (count >= 10){
@@ -93,16 +62,16 @@ void UDPSend::receivefrom(){
 	    print_info("recvfrom()");
     }
 	if (buffer[4] == 0) printf("Message received motor %u\n", buffer[2]);
-	else puts(buffer);
+	//else printf("%s\n",buffer);
 }
 
 
 
 int main(int argc, char **argv) {
-	int port = 1153;
-	//ros::init(argc, argv, "udp_comm_node");
+	int port = 49160;
+	ros::init(argc, argv, "udp_motor_node");
 	UDPSend udp(port);
 	udp.send();
-	//ros::spin();
+	ros::spin();
 	return 0;
 }
